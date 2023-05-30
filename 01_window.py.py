@@ -61,13 +61,28 @@ def validate_receipt_number():
     # Receipt number is valid
     return True
 
+def validate_selection():
+    selection = combobox.get()
+    if selection == "":
+        messagebox.showerror("Error", "Please select an item hired.")
+    else:
+    # Item Hired is selected 
+        return True
+
+def validate_number():
+    try:
+        number = int(lblnum_entry.get())
+        if number < 1 or number > 500:
+            raise ValueError
+        return True
+    except ValueError:
+        messagebox.showerror("Error", "Please enter a number of hired item between 1 and 500.")
+
 def submit():
-    if validate_name() and validate_receipt_number():
+    if validate_name() and validate_receipt_number() and validate_selection() and validate_number():
         input_record()
 
 def add_button():
-    validate_name()
-    validate_receipt_number()
     submit()
     
 
