@@ -78,13 +78,21 @@ def validate_number():
     except ValueError:
         messagebox.showerror("Error", "Please enter a number of hired item between 1 and 500.")
 
+
+def validate_email():
+    email = lblemail_entry.get()
+    if re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return True
+    else:
+        messagebox.showerror("Invalid Email", "Please enter a valid email address.")
+
+
 def submit():
-    if validate_name() and validate_receipt_number() and validate_selection() and validate_number():
+    if validate_name() and validate_receipt_number() and validate_selection() and validate_number() and validate_email():
         input_record()
 
 def add_button():
     submit()
-    
 
 # DATA
 data  = []
