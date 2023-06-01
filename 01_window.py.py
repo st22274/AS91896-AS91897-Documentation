@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import re
+from tkinter.ttk import Treeview
 
 root=Tk()
 
@@ -9,11 +10,6 @@ root.title("Julie's Party Hire")
 root.geometry('800x400')
 
 # FUNCTIONS
-def delete():
-    selected_item = set.selection()[0] ## get selected item
-    set.delete(selected_item)
-
-
 def input_record():
     
     global count
@@ -86,6 +82,26 @@ def validate_email():
     else:
         messagebox.showerror("Invalid Email", "Please enter a valid email address.")
 
+def delete_key(event):
+    selected_item = set.selection()
+
+    if selected_item:
+        confirmation = messagebox.askyesno("Confirmation", "Are you sure you want to delete this row?")
+        
+        if confirmation:
+            set.delete(selected_item)
+
+# Bind the delete event to the delete_key function
+root.bind_class('Treeview', '<Delete>', delete_key)
+            
+def delete_button():
+    selected_item = set.selection()
+
+    if selected_item:
+        confirmation = messagebox.askyesno("Confirmation", "Are you sure you want to delete this row?")
+        
+        if confirmation:
+            set.delete(selected_item)
 
 def submit():
     if validate_name() and validate_receipt_number() and validate_selection() and validate_number() and validate_email():
@@ -167,7 +183,7 @@ Input_button.pack()
 
 
 # SETS
-set = ttk.Treeview(root)
+set = Treeview(root)
 set.pack()
 
 set['columns']= ('Customer Name', 'Receipt Number','Item Hired', 'No. of Hired Item', 'Email Address')
@@ -188,7 +204,7 @@ set.heading("Email Address", text="Email Address", anchor=CENTER)
 
 
 # BUTTONS UNDER TREEVIEW
-delete_button = Button(root, text = "Delete Row", command = delete)
+delete_button = Button(root, text = "Delete Row", command = delete_button)
 
 delete_button.pack()
 
