@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import re
 from tkinter.ttk import Treeview
+from tkinter import Frame
 
 root=Tk()
 
@@ -110,6 +111,21 @@ def submit():
 def add_button():
     submit()
 
+def search(event):
+    set.selection_remove(set.get_children())
+
+    # Get the search query from the entry widget
+    query = search_entry.get().lower()
+
+    # Iterate over the items in the Treeview
+    for item in set.get_children():
+        item_values = set.item(item)['values']
+        if any(query in str(value).lower() for value in item_values):
+            set.selection_add(item)
+
+ 
+
+
 # DATA
 data  = []
 
@@ -177,7 +193,7 @@ lblitem_entry.pack()
 combobox.bind('<<ComboboxSelected>>', on_select)
 
 # BUTTONS OVER TREEVIEW
-Input_button = Button(root,text = "Add to list",command = add_button)
+Input_button = Button(root,text = "Add to list", command = add_button)
 
 Input_button.pack()
 
@@ -202,10 +218,14 @@ set.heading("No. of Hired Item", text="No. of Hired Item", anchor=CENTER)
 set.heading("Email Address", text="Email Address", anchor=CENTER)
 
 
+# Entry for search bar
+search_entry = Entry(root)
+search_entry.pack()
+
+search_entry.bind('<KeyRelease>', search)
 
 # BUTTONS UNDER TREEVIEW
 delete_button = Button(root, text = "Delete Row", command = delete_button)
-
 delete_button.pack()
 
 
