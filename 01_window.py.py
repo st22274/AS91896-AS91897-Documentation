@@ -4,11 +4,18 @@ from tkinter import messagebox
 import re
 from tkinter.ttk import Treeview
 from tkinter import Frame
+import tkinter.font as font
 
 root=Tk()
 
+# FONTS
+title_font = font.Font(family="MV Boli", size=15, weight = "bold")
+font2 = font.Font(family="MV Boli", size=10)
+
 root.title("Julie's Party Hire")
-root.geometry('800x400')
+root.geometry('800x450')
+
+
 
 # FUNCTIONS
 def input_record():
@@ -114,7 +121,7 @@ def add_button():
 def search(event):
     set.selection_remove(set.get_children())
 
-    # Get the search query from the entry widget
+    # The search query from the entry widget
     query = search_entry.get().lower()
 
     # Iterate over the items in the Treeview
@@ -122,8 +129,6 @@ def search(event):
         item_values = set.item(item)['values']
         if any(query in str(value).lower() for value in item_values):
             set.selection_add(item)
-
- 
 
 
 # DATA
@@ -144,34 +149,40 @@ Input_frame.pack()
 # LABELS
 lbltitle = Label(Input_frame, text="Julie's Party Hire")
 lbltitle.grid(row=0, column=2)
+lbltitle['font'] = title_font
 
 lblname = Label(Input_frame,text="Customer Name")
-lblname.grid(row=2,column=0)
+lblname.grid(row=3,column=0)
+lblname['font'] = font2
 
 lblreceipt= Label(Input_frame,text="Receipt Number")
-lblreceipt.grid(row=2,column=1)
+lblreceipt.grid(row=3,column=1)
+lblreceipt['font'] = font2
 
 lblitem= Label(Input_frame,text="Item Hired")
-lblitem.grid(row=3,column=2)
+lblitem.grid(row=4,column=2)
+lblitem['font'] = font2
 
 lblnum = Label(Input_frame, text="No. of Hired Item")
-lblnum.grid(row=2,column=3)
+lblnum.grid(row=3,column=3)
+lblnum['font'] = font2
 
 lblemail  = Label(Input_frame, text="Email Address")
-lblemail.grid(row=2, column=4)
+lblemail.grid(row=3, column=4)
+lblemail['font'] = font2
 
 # ENTIRES
 lblname_entry = Entry(Input_frame)
-lblname_entry.grid(row=3,column=0)
+lblname_entry.grid(row=4,column=0)
 
 lblreceipt_entry = Entry(Input_frame)
-lblreceipt_entry.grid(row=3,column=1)
+lblreceipt_entry.grid(row=4,column=1)
 
 lblnum_entry = Entry(Input_frame)
-lblnum_entry.grid(row=3, column=3)
+lblnum_entry.grid(row=4, column=3)
 
 lblemail_entry = Entry(Input_frame)
-lblemail_entry.grid(row=3, column=4)
+lblemail_entry.grid(row=4, column=4)
 
 
 def on_select(event):
@@ -193,8 +204,8 @@ lblitem_entry.pack()
 combobox.bind('<<ComboboxSelected>>', on_select)
 
 # BUTTONS OVER TREEVIEW
-Input_button = Button(root,text = "Add to list", command = add_button)
-
+Input_button = Button(root,text = "Add", bg = "lightcyan", command = add_button, width = 10)
+Input_button['font'] = font2
 Input_button.pack()
 
 
@@ -225,7 +236,8 @@ search_entry.pack()
 search_entry.bind('<KeyRelease>', search)
 
 # BUTTONS UNDER TREEVIEW
-delete_button = Button(root, text = "Delete Row", command = delete_button)
+delete_button = Button(root, text = "Delete", bg = "lightpink", command = delete_button, width = 10)
+delete_button['font'] = font2
 delete_button.pack()
 
 
