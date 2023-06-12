@@ -131,6 +131,10 @@ def search(event):
             set.selection_add(item)
 
 
+def close():
+    root.destroy()
+    root.quit()
+
 # DATA
 data  = []
 
@@ -240,6 +244,9 @@ delete_button = Button(root, text = "Delete", bg = "lightpink", command = delete
 delete_button['font'] = font2
 delete_button.pack()
 
+exit_button = Button(text = "Exit", bg = "lightgray", command = close, width = 10)
+exit_button['font'] = font2
+exit_button.pack()
 
 
 root.mainloop()
